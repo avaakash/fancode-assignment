@@ -1,5 +1,4 @@
 const mysql = require('../lib/mysql');
-const sport = require('./sport');
 
 const getAllNews = async () => {
     const statement = 'select * from news;';
