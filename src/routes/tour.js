@@ -3,7 +3,11 @@ const Tour = require('../controllers/tour');
 module.exports = function(app) {
     app.route('/tours').get(async (req, res, next) => {
         try {
-            return res.json(await Tour.getAllTours());
+            const result = await Tour.getAllTours();
+            if (result.success) {
+                return res.json(result.data);
+            }
+            return res.status(500).send(result.message);
         } catch (err) {
             return next(err);
         }

@@ -38,6 +38,19 @@ create table if not exists mydb.matches
 -- Optimize queries for fetching matches by tourName
 alter table mydb.tours add index tourName(name);
 
+create table if not exists mydb.news
+(
+    id int auto_increment not null primary key,
+    title varchar(50) not null,
+    description varchar(255) not null,
+    matchId int null,
+    tourId int not null,
+    recUpdatedAt timestamp not null default current_timestamp on update current_timestamp,
+    createdAt timestamp not null default current_timestamp,
+    foreign key (matchId) references matches(id),
+    foreign key (tourId) references tours(id)
+);
+
 -- seed data
 insert ignore into mydb.sports (id, name) values (1, 'Cricket');
 insert ignore into mydb.sports (id, name) values (2, 'Football');
@@ -58,3 +71,10 @@ insert ignore into mydb.matches (name, tourId, format, startTime, endTime) value
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('IND vs WI', 3, 'ODI', '2023-06-12 10:00:00', '2023-06-12 23:00:00');
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('IND vs WI', 3, 'ODI', '2023-06-14 10:00:00', '2023-06-14 23:00:00');
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('KER vs JFC', 4, 'soccer', '2022-04-09 18:00:00', '2022-04-09 23:00:00');
+
+insert ignore into mydb.news (title, description, matchId, tourId) values ('GT plays RCB', 'Gujarat Titans will play Royal Challengers Bangalore on Sunday', 1, 1);
+insert ignore into mydb.news (title, description, matchId, tourId) values ('CSK plays MI', 'Chennai Super Kings will play Mumbai Indians on Monday', 2, 1);
+insert ignore into mydb.news (title, description, matchId, tourId) values ('LSG plays KXIP', 'Lucknow Super Giants will play Kings XI Punjab on Tuesday', 3, 1);
+insert ignore into mydb.news (title, description, tourId) values ('IPL starts tomorrow', 'Indian Premier League 2023 will start tomorrow', 1);
+insert ignore into mydb.news (title, description, tourId) values ('ISL starts tomorrow', 'India Super League starts next week', 2);
+insert ignore into mydb.news (title, description, tourId) values ('India starts WI tour', 'India will play West Indies tomorrow', 3);

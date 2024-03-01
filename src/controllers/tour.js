@@ -8,10 +8,11 @@ const getMatchesByTourName = async params => {
     const { name } = params;
 
     if (!name) {
-        throw new Error('Missing required parameter: name');
+        return {"success": false, "message": 'Missing required parameter: name', "data": []};
     }
 
-    return await Tour.getMatchesByTourName(params);
+    result = await Tour.getMatchesByTourName(params);
+    return {"success": true, "message": "Tours fetched successfully", "data": result};
 }
 
 module.exports = {

@@ -1,7 +1,8 @@
 const Match = require('../models/match');
 
 const getAllMatches = async () => {
-    return await Match.getAllMatches();
+    result = await Match.getAllMatches();
+    return {"success": true, "message": "Matches fetched successfully", "data": result};
 }
 
 module.exports = {

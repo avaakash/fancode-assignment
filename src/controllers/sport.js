@@ -13,7 +13,7 @@ const getAllSportsToursAndMatches = async () => {
         }
         res[sportName][tourName].push({"id": matchId, "matchName": matchName, "format": matchFormat, "startTime": matchStartTime});
     });
-    return res;
+    return {"success": true, "message": "Data fetched successfully", "data": res};
 }
 
 module.exports = {
